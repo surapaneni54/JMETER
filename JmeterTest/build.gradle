@@ -1,0 +1,29 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def jmeterTest="../JmeterTest"
+def libDir="${jmeterTest}/lib"
+def confDir="${jmeterTest}/conf"
+
+repositories {
+	// Spock releases are available from Maven Central
+	mavenCentral()
+	// Spock snapshots are available from the Sonatype OSS snapshot repository
+	maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+sourceSets {	
+	main {
+		java {
+			srcDir "${jmeterTest}/src/main/java"
+		}
+	}
+}
+
+dependencies {
+	compile fileTree(dir: "${libDir}", include: ["*.jar"])
+	
+	runtime files("${confDir}")	
+}
